@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package device;
+option go_package = "edgex-cloud-sdk-go/proto/device";
+
+import "proto/common/common.proto";
+import "google/protobuf/empty.proto";
+
+message ProtocolProperties {
+  map<string, string> pp = 1;
+}
+
+//新增子设备
+message DeviceAddInfo {
+  string id = 1; //不可更改，必填
+  string name = 2;
+  string description = 3;
+  string product_id = 4;
+  string ip = 5;
+  string lat = 6;
+  string lon = 7;
+  string vendorCode = 8;
+  string installLocation = 9;
+  string extend_data = 10;
+  bool   is_ipc_dev = 11;   //设备增加后不可更改，默认为false
+  map<string, ProtocolProperties> protocols = 12;
+  string service_id = 13;
+  string online_status = 14;
+  string active_status = 15;
+  string cloud_device_id = 16;
+  string screen_type = 17;
+  string parent_cloud_id = 18; // 父级id
+  bool is_screen_device = 19; // 是否为中控设备
+}
+
+message AddDeviceRequest {
+  DeviceAddInfo device = 1;
+}
+
+message AddDevicesRequest {
+  repeated DeviceAddInfo devices = 1;
+}
+
+//更新子设备属性
+message DeviceUpdateInfo {
+  string id = 1;   //不可更改，唯一查找条件
+  optional string name = 2;
+  optional string description = 3;
+  optional string product_id = 4;
+  optional string ip = 5;
+  optional string lat = 6;
+  optional string lon = 7;
+  optional string vendorCode = 8;
+  optional string installLocation = 9;
+  optional string extend_data = 10;
+  map<string, ProtocolProperties> protocols = 12;
+  optional string service_id = 13;
+  optional string online_status = 14;
+  optional string active_status = 15;
+  optional string cloud_device_id = 16;
+  repeated string screen_type = 17;
+  string parent_cloud_id = 18; // 父级id
+  bool is_screen_device = 19; // 是否为中控设备
+}
+
+message UpdateDeviceRequest {
+  DeviceUpdateInfo updateDevice = 1;
+}
+
+// 设备查询请求
+message DeviceSearchQueryRequest {
+  common.BaseSearchConditionQuery base_search_condition_query = 1;
+  string active_statuses = 2;
+  string service_id = 3;
+  string product_id = 4;
+  string status = 5;
+  string active_status = 6;
+  string cloud_device_ids = 7;
+  string id_or_name_like = 8;
+}
+
+//查询子设备
+message DeviceInfo {
+  string id = 1; //不可更改，必填
+  string name = 2;
+  string description = 3;
+  string product_id = 4;
+  string ip = 5;
+  string lat = 6;
+  string lon = 7;
+  string vendorCode = 8;
+  string installLocation = 9;
+  string extend_data = 10;
+  bool   is_ipc_dev = 11;   //设备增加后不可更改，默认为false
+  map<string, ProtocolProperties> protocols = 12;
+  string service_id = 13;
+  string online_status = 14;
+  string active_status = 15;
+  string cloud_device_id = 16;
+  repeated string screen_type = 17;
+  string parent_cloud_id = 18; // 父级id
+  bool is_screen_device = 19; // 是否为中控设备
+}
+
+// 设备查询响应
+message MultiDeviceResponse {
+  uint32 total = 1;
+  repeated DeviceInfo devices = 2;
+}
+
+// 通过设备ID查询
+message DeviceByIdRequest {
+  string id = 1;
+}
+
+// 设备删除
+message DeleteDeviceByIdRequest {
+  string id = 1;
+}
+
+// 设备状态
+message DeviceOnlineAndOfflineList {
+  repeated string online = 1;
+  repeated string offline = 2;
+}
+
+//子设备激活
+message DeviceActive {
+  repeated string id = 1;
+  bool is_all = 2;
+}
+
+//子设备激活响应
+message ActiveDeviceResponse {
+  int32 process_num = 1;
+  int32 success_num = 2;
+  int32 fail_num = 3;
+  repeated ActiveDeviceResult active_device_results = 4;
+}
+
+//子设备激活结果
+message ActiveDeviceResult {
+  string id = 1;
+  string name = 2;
+  bool process_success = 3;
+  string active_status = 4;
+  string remark = 5;
+}
+
+// SDK 使用
+service RpcDevice {
+  // 添加新的设备
+  rpc AddDevice(AddDeviceRequest) returns (google.protobuf.Empty) {}
+
+  // 激活子设备
+  rpc ActivateDevice(DeviceActive) returns (ActiveDeviceResponse) {}
+
+  // 更新设备属性
+  rpc UpdateDevice(UpdateDeviceRequest) returns (google.protobuf.Empty) {}
+
+  // 根据设备ID查询设备信息
+  rpc DeviceById(DeviceByIdRequest) returns (DeviceInfo) {}
+
+  // 根据设备ID删除设备
+  rpc DeleteDeviceById(DeleteDeviceByIdRequest) returns (google.protobuf.Empty) {}
+
+  // 条件查询设备
+  rpc DevicesSearch(DeviceSearchQueryRequest) returns (MultiDeviceResponse) {}
+
+  // 上报设备上下线状态
+  rpc ReportDevicesOnlineAndOffline(DeviceOnlineAndOfflineList) returns (google.protobuf.Empty) {}
+}
