@@ -1,4 +1,4 @@
-module edgex-cloud-sdk-go
+module github.com/winc-link/edgex-cloud-sdk-go
 
 go 1.16
 
