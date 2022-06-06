@@ -16,7 +16,7 @@ package main
 
 import (
     "context"
-    "edgex-cloud-sdk-go/proto/device"
+    "github.com/winc-link/edgex-cloud-sdk-go/proto/device"
     "fmt"
     "google.golang.org/grpc"
     "log"

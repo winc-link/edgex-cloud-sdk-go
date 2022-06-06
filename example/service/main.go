@@ -14,36 +14,37 @@
  *******************************************************************************/
 package main
 
-//import (
-//    "fmt"
-//
-//    "github.com/winc-link/edgex-cloud-sdk-go/providers"
-//    "github.com/winc-link/edgex-cloud-sdk-go/service"
-//)
+import (
+    "fmt"
+    
+    "github.com/winc-link/edgex-cloud-sdk-go/providers"
+    "github.com/winc-link/edgex-cloud-sdk-go/service"
+)
 
-//var _ providers.EdgeXCloud = (*st)(nil)
-//
-//type st struct {
-//
-//}
-//
-//func (s st) CreateProduct() {
-//    panic("implement me")
-//}
-//
-//func (s st) AddDevice(id string) {
-//    fmt.Println("add device",id)
-//}
-//
-//func Newst()  *st{
-//    return &st{}
-//}
-//
-//func main()  {
-//    fmt.Println(1)
-//    s := service.NewEdgeXCloudServer(Newst())
-//    err := s.Start()
-//    if err != nil{
-//        panic(err)
-//    }
-//}
+var _ providers.EdgeXCloud = (*st)(nil)
+
+type st struct {
+
+}
+
+
+func (s st) CreateProduct(productName string,nodeType int ,description string,protocolType string ,extra map[string]interface{}) {
+    panic("implement me")
+}
+
+func (s st) AddDevice(id string) {
+    fmt.Println("add device",id)
+}
+
+func Newst()  *st{
+    return &st{}
+}
+
+func main()  {
+    fmt.Println(1)
+    s := service.NewEdgeXCloudServer(Newst())
+    err := s.Start()
+    if err != nil{
+        panic(err)
+    }
+}
