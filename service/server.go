@@ -15,9 +15,9 @@
 package service
 
 import (
-	"edgex-cloud-sdk-go/constants"
-	"edgex-cloud-sdk-go/internal/pkg/handlers"
-	"edgex-cloud-sdk-go/providers"
+	"github.com/winc-link/edgex-cloud-sdk-go/constants"
+	"github.com/winc-link/edgex-cloud-sdk-go/internal/pkg/handlers"
+	"github.com/winc-link/edgex-cloud-sdk-go/providers"
 	"google.golang.org/grpc"
 	"net"
 )

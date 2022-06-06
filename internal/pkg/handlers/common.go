@@ -16,7 +16,7 @@ package handlers
 
 import (
     "context"
-    "edgex-cloud-sdk-go/proto/common"
+    "github.com/winc-link/edgex-cloud-sdk-go/proto/common"
     "google.golang.org/grpc"
     "google.golang.org/protobuf/types/known/emptypb"
 )

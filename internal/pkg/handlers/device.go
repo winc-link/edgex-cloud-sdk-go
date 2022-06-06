@@ -16,8 +16,8 @@ package handlers
 
 import (
     "context"
-    "edgex-cloud-sdk-go/proto/device"
-    "edgex-cloud-sdk-go/providers"
+    "github.com/winc-link/edgex-cloud-sdk-go/proto/device"
+    "github.com/winc-link/edgex-cloud-sdk-go/providers"
     "fmt"
     "google.golang.org/grpc"
     "google.golang.org/protobuf/types/known/emptypb"
